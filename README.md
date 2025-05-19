@@ -81,5 +81,5 @@ Password: Software
 
 - After login, you are redirected to the training quiz.
 - Answer all questions. Upon submission, you’ll see per‑topic results.
-- For any failed topic, click **Watch tutorial**, then **Retake test**.
+- For any failed topic click **Retake test**.
 - Once all topics are passed, your session is marked **Finished**.
