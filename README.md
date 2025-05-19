@@ -4,14 +4,14 @@ A prototype web application demonstrating a role-specific security awareness tra
 
 ## Features
 
-- **Role‑topic Mapping**: Each user role (e.g. Product Manager, Software Engineer, Sales) has a custom set of training topics.
+- **Role‑topic Mapping**: Each user role (e.g. Product Manager, Software Engineer) has a custom set of training topics.
 - **Adaptive Quiz Flow**:
     - Initial quiz covers all topics assigned to the user.
     - Failed topics require watching a tutorial video before a focused retake.
 - **Progress Tracking**:
-    - Records training sessions and per‑topic attempts with scores and pass/fail status.
+    - Records training session and pass/fail status.
     - Marks a session complete only when all topics are passed.
-- **Server‑Driven UI**: Uses Inertia.js for seamless single‑page navigation without a separate API layer.
+- **Server‑Driven UI**: Uses Inertia.js for single‑page navigation.
 - **Secure Input**: Dynamic validation ensures each question is answered and options belong to the correct question.
 
 ## Technology Stack
@@ -32,8 +32,8 @@ A prototype web application demonstrating a role-specific security awareness tra
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-org/role-based-security-training.git
-   cd role-based-security-training
+   git clone https://github.com/artioladoli/security_awareness_training.git
+   cd security_awareness_training
    ```
 
 2. **Install PHP dependencies**
@@ -73,8 +73,8 @@ php artisan serve
 Visit `http://127.0.0.1:8000` in your browser. Log in with the seeded user credentials:
 
 ```
-Email: user@user.com
-Password: testtest
+Email: software@example.com
+Password: Software
 ```
 
 ## Usage
@@ -83,29 +83,3 @@ Password: testtest
 - Answer all questions. Upon submission, you’ll see per‑topic results.
 - For any failed topic, click **Watch tutorial**, then **Retake test**.
 - Once all topics are passed, your session is marked **Finished**.
-
-## Project Structure
-
-```
-├── app/
-│   ├── Http/Controllers/QuizController.php
-│   └── Http/Controllers/TrainingSessionController.php
-│
-├── resources/js/Pages/
-│   ├── quiz/
-│   │   ├── Show.jsx       # Quiz form
-│   │   └── Watch.jsx      # Tutorial video step
-│   └── training/
-│       └── Show.jsx       # Results page
-│
-├── database/
-│   ├── migrations/       # Table schemas
-│   └── seeders/          # Predefined data loader
-│
-└── routes/web.php        # Route declarations
-```
-
-## License
-
-This project is licensed under the MIT License. Feel free to reuse and adapt for educational purposes.
-
