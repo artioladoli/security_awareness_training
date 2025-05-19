@@ -75,7 +75,7 @@ class SecurityAwarenessSeeder extends Seeder
             $topics[$name] = Topic::create([
                 'name'           => $name,
                 'description'    => "Overview of {$name}.",
-                'video_url'      => 'https://example.com/videos/' . Str::slug($name),
+                'video_url'      => "https://pic.pikbest.com/00/20/37/273888piC6zA.mp4",
                 'required_score' => 75,
             ]);
         }
