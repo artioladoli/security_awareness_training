@@ -7,9 +7,37 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, CheckCircle } from 'lucide-react';
 
-export default function ShowQuestions({ session, topic, questions }) {
+interface Option {
+    id: number;
+    text: string;
+    is_correct: boolean;
+}
+
+interface Question {
+    id: number;
+    text: string;
+    options: Option[];
+}
+
+interface Topic {
+    id: number;
+    name: string;
+    description: string;
+}
+
+interface Session {
+    id: number;
+}
+
+interface Props {
+    session: Session;
+    topic?: Topic;
+    questions: Question[];
+}
+
+export default function ShowQuestions({ session, topic, questions }: Props) {
     const [selectedAnswers, setSelectedAnswers] = useState<Record<number, number[]>>({});
     const [errors, setErrors] = useState<number[]>([]);
 
@@ -22,6 +50,18 @@ export default function ShowQuestions({ session, topic, questions }) {
             }
             return { ...prev, [questionId]: updatedSelections };
         });
+    };
+
+    const handleAutoSelect = () => {
+        const newSelectedAnswers: Record<number, number[]> = {};
+        questions.forEach(question => {
+            const correctOptions = question.options.filter(option => option.is_correct).map(option => option.id);
+            if (correctOptions.length > 0) {
+                newSelectedAnswers[question.id] = correctOptions;
+            }
+        });
+        setSelectedAnswers(newSelectedAnswers);
+        setErrors([]);
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -54,6 +94,21 @@ export default function ShowQuestions({ session, topic, questions }) {
                         Go back
                     </Link>
                 )}
+
+
+                {process.env.NODE_ENV === 'development' && (
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={handleAutoSelect}
+                        className="flex items-center gap-2"
+                    >
+                        <CheckCircle className="w-4 h-4" />
+                        Auto-select correct answers
+                    </Button>
+                )}
+
+
             </div>
             <Card className="w-full max-w-5xl border-none shadow-none mx-auto">
                 <CardHeader className="pb-2">
@@ -68,7 +123,7 @@ export default function ShowQuestions({ session, topic, questions }) {
                     <CardContent className="space-y-10 px-6 py-8 border-none">
                         {questions.map((question, idx) => (
                             <div key={question.id} className="space-y-3">
-                                <h3 className="font-medium text-lg text-gray-800 dark:text-gray-200">{question.text}</h3>
+                                <h3 className="font-medium text-lg text-gray-800 dark:text-gray-200">{idx + 1}. {question.text}</h3>
                                 <div className="space-y-3 mt-4">
                                     {question.options.map(option => (
                                         <div key={option.id} className="flex items-center space-x-3 py-1">
